@@ -20,4 +20,12 @@ public final class CaseThatPatterns {
   public static <R> Pattern<Object, R> caseEq(Object o, Supplier<R> supplier) {
     return caseThat(eq(o), supplier);
   }
+
+  public static <R> Pattern.Matching<Object> caseThat(Matcher<Object> matcher) {
+    return Pattern.matching(matcher::matches);
+  }
+
+  public static <R> Pattern.Matching<Object> caseEq(Object o) {
+    return caseThat(eq(o));
+  }
 }

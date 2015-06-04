@@ -25,7 +25,7 @@ public class OptionalPatternSpec {
           it.should(
               "handle none", expect -> {
                 String result = match(none).on(
-                    caseNone(() -> "None")
+                    OptionalPattern.<String>caseNone().is(() -> "None")
                 );
 
                 expect.that(result).is("None");
@@ -34,8 +34,8 @@ public class OptionalPatternSpec {
           it.should(
               "handle some", expect -> {
                 String result = match(some).on(
-                    caseNone(() -> "None"),
-                    caseSome((String a) -> a)
+                    OptionalPattern.<String>caseNone().is(() -> "None"),
+                    OptionalPattern.<String>caseSome().is((String a) -> a)
                 );
 
                 expect.that(result).is("a string");

@@ -16,9 +16,9 @@ public class CaseThatExample {
     Object pi = Math.PI;
 
     String result = match(pi).on(
-        caseEq(42, () -> "a magic no."),
-        caseEq("Hello!", () -> "a greet"),
-        caseEq(Math.PI, () -> "another magic no."),
+        caseEq(42).is(() -> "a magic no."),
+        caseEq("Hello!").is(() -> "a greet"),
+        caseEq(Math.PI).is(() -> "another magic no."),
         orElse("something else")
     );
 

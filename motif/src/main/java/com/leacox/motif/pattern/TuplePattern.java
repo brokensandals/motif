@@ -33,6 +33,30 @@ public final class TuplePattern {
         t -> function.apply(t.first()));
   }
 
+    public static <A> Pattern.Matching<Tuple1<A>>.Taking1<A> caseTuple1(A a) {
+        return caseTuple1(eq(a));
+    }
+
+    public static <A> Pattern.Matching<Tuple1<A>>.Taking1<A> caseTuple1(
+            ArgumentMatcher a
+    ) {
+        ArgumentMatcher[] matchers = new ArgumentMatcher[] {a};
+        return Pattern.<Tuple1<A>>matching(t -> ArgumentsComparator.argumentsMatch(matchers, t.toList()))
+                .taking1(t -> t.first());
+    }
+
+    public static <A, B> Pattern.Matching<Tuple2<A, B>>.Taking2<A, B> caseTuple2(A a, B b) {
+        return caseTuple2(eq(a), eq(b));
+    }
+
+    public static <A, B> Pattern.Matching<Tuple2<A, B>>.Taking2<A, B> caseTuple2(
+            ArgumentMatcher a, ArgumentMatcher b
+    ) {
+        ArgumentMatcher[] matchers = new ArgumentMatcher[] {a, b};
+        return Pattern.<Tuple2<A, B>>matching(t -> ArgumentsComparator.argumentsMatch(matchers, t.toList()))
+                .taking2(t -> t.first(), t -> t.second());
+    }
+
   public static <A> ConsumablePattern<Tuple1<A>> cazeTuple1(A a, Consumer<A> consumer) {
     return cazeTuple1(eq(a), consumer);
   }

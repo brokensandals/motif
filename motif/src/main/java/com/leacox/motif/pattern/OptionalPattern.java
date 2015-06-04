@@ -18,6 +18,14 @@ public final class OptionalPattern {
     return Pattern.of(Optional::isPresent, o -> function.apply(o.get()));
   }
 
+  public static <T> Pattern.Matching<Optional<T>>.Taking1<T> caseSome() {
+    return Pattern.<Optional<T>>matching(Optional::isPresent).taking1(Optional::get);
+  }
+
+  public static <T> Pattern.Matching<Optional<T>> caseNone() {
+    return Pattern.<Optional<T>>matching(o -> !o.isPresent());
+  }
+
   public static <T> ConsumablePattern<Optional<T>> cazeSome(Consumer<T> consumer) {
     return ConsumablePattern.of(Optional::isPresent, o -> consumer.accept(o.get()));
   }
